@@ -1,0 +1,129 @@
+var agentType = Number(process.env.RTC_IN_SESSION_ID);
+var sec = 1000;
+var drop = 10000;
+
+client.resizeWindow(1280, 720);
+
+if (agentType === 1) {
+
+    // Browser 1 actions take place here
+    client
+        .rtcSetTestExpectation("audio.out == 1")
+        .rtcSetTestExpectation("video.out == 1")
+        .rtcSetTestExpectation("audio.out.bitrate > 0")
+        .rtcSetTestExpectation("video.out.bitrate > 0")
+        .pause(30000)
+        //.url(process.env.RTC_SERVICE_URL)
+        .url('https://liveclass.extramarks.com/live_classroom/liveclass/setuserdata/E996/Teacher/dhanakumar/emscc/emscc_1')
+        .pause(30000)
+        .rtcScreenshot("1")
+        .url('https://liveclass.extramarks.com/live_classroom/liveclass/share/emscc_1')
+        .pause(50000)
+        .rtcScreenshot("1")
+
+        //adding new Script
+        .useXpath()
+        //Accept the student request
+        .waitForElementVisible('//*[@class="accept-request"]', 15000)
+        .pause(1000)
+        .click('//*[@class="accept-request"]')
+
+        // Mute button
+        .waitForElementVisible('//*[@class="icon-mute"]', 15000)
+        .pause(1000)
+        .click('//*[@class="icon-mute"]')
+
+        //Unmute button
+        .waitForElementVisible('//i[@class="icon-unmute"]', 15000)
+        .pause(1000)
+        .click('//i[@class="icon-unmute"]')
+
+
+        //Video cam off
+
+        .waitForElementVisible('//*[@class="icon-videocam"]', 15000)
+        .pause(1000)
+        .click('//*[@class="icon-videocam"]')
+
+        //video cam on 
+        .waitForElementVisible('//i[@class="icon-stop-videocam"]', 15000)
+        .pause(1000)
+        .click('//i[@class="icon-stop-videocam"]')
+
+
+
+        //Full screen teacher image
+        .waitForElementVisible('//img[@src="/assets/images/svg/maxmize.svg"]', 15000)
+        .pause(1000)
+        .click('//img[@src="/assets/images/svg/maxmize.svg"]')
+        .pause(3000)
+        .rtcScreenshot("1")
+        //Minimize Teacher image Screen
+        .waitForElementVisible('//img[@src="/assets/images/svg/minimize.svg"]', 15000)
+        .pause(1000)
+        .click('//img[@src="/assets/images/svg/minimize.svg"]')
+        .rtcScreenshot("1")
+
+        //Click on Group Chats
+        .waitForElementVisible('//li[@id="groupchatstab"]', 15000)
+        .pause(1000)
+        .click('//li[@id="groupchatstab"]')
+
+        //Sends Message
+        .waitForElementVisible('//textarea[@id="chatInputText"]', 15000)
+        .assert.visible('//textarea[@id="chatInputText"]')
+        .pause(1000)
+        .setValue('//textarea[@id="chatInputText"]', 'hi All from TestRtc Class')
+        .pause(3000)
+        .click('//button[@id="sendMessage"]')
+
+        //Click on participants tab
+        .waitForElementVisible('//li[@id="partipantstab"]', 15000)
+        .pause(1000)
+        .click('//li[@id="partipantstab"]')
+        .pause(50000)
+        .rtcScreenshot("1")
+
+    /*//Clcik on Leave Class
+        .waitForElementVisible('//i[@class="fa icon-leaveclass"]', 15000)
+        .pause(1000)
+        .click('//i[@class="fa icon-leaveclass"]')
+        .rtcScreenshot("1")
+*/
+
+
+
+} else {
+
+    client
+        .rtcSetTestExpectation("audio.in == 1")
+        .rtcSetTestExpectation("video.in == 1")
+        .rtcSetTestExpectation("audio.in.bitrate > 0")
+        .rtcSetTestExpectation("video.in.bitrate > 0")
+        .pause(30000)
+        //  .url(process.env.RTC_SERVICE_URL)
+        .url('https://liveclass.extramarks.com/live_classroom/liveclass/setuserdata/9111112393/Student/testsjtestingelectron/emscc/emscc_1')
+        .pause(20000)
+        .url('https://liveclass.extramarks.com/live_classroom/liveclass/join/emscc_1')
+        .pause(30000)
+        .rtcScreenshot("1")
+        .pause(3000)
+        .useXpath()
+        .waitForElementVisible('//*[@class="fa icon-hand-raise "]', 15000)
+        .pause(3000)
+        .click('//*[@class="fa icon-hand-raise "]')
+        .pause(50000)
+        .rtcScreenshot("1")
+
+        .waitForElementVisible('//*[@class="btn round28 blue-bg text-white"]', 15000)
+        .pause(3000)
+        .click('//*[@class="btn round28 blue-bg text-white"]')
+        .pause(60000)
+        .rtcScreenshot("1")
+
+
+}
+
+client.pause(90000)
+    .rtcScreenshot("2")
+    .pause(90000)
